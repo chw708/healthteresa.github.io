@@ -1,0 +1,120 @@
+/* Reset & Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f5f8fc;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header & Footer */
+.site-header,
+.site-footer {
+  background: #4d79ff;
+  color: #fff;
+}
+.site-header .inner,
+.site-footer .inner {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+  text-align: center;
+}
+.site-footer {
+  margin-top: auto;
+}
+
+/* Pages */
+.page {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+.card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+.card h2 {
+  color: #4d79ff;
+  margin-bottom: 1rem;
+}
+.card p {
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.inline-group {
+  display: flex;
+  gap: 1rem;
+}
+.inline-group > div {
+  flex: 1;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 0.5rem 0.25rem;
+}
+.btn-primary {
+  background: #4d79ff;
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #3a5fd6;
+}
+.btn-secondary {
+  background: #e0e0e0;
+  color: #333;
+}
+.btn-secondary:hover {
+  background: #cacaca;
+}
+
+/* Result Text */
+.result-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Disclaimer */
+.disclaimer {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 1.5rem;
+}

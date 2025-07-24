@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "serve -s public -l 8080"
+  },
+  "dependencies": {
+    "serve": "^14.0.1"
+  }
+}

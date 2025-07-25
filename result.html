@@ -3,38 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Result – Stroke Risk Checker</title>
-  <meta name="author" content="Teresa Services" />
-  <link rel="stylesheet" href="style.css" />
+  <title>Your Stroke Risk Result – Teresa Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #FCF4DF;
+      font-family: 'Poppins', 'Noto Sans', sans-serif;
+      color: #1B4D3E;
+      padding: 2rem;
+    }
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(27, 77, 62, 0.1);
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .button {
+      display: inline-block;
+      background-color: #1B4D3E;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 1rem;
+      box-shadow: 0 4px 10px rgba(27, 77, 62, 0.2);
+      transition: background 0.3s ease;
+    }
+    .button:hover {
+      background-color: #163d30;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 3rem;
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="inner">
-      <h1>Teresa Services</h1>
-    </div>
-  </header>
+  <div class="container">
+    <h2>Your Stroke Risk Result</h2>
+    <p id="resultText">Loading...</p>
+    <a href="assessment.html" class="button">Retake Assessment</a>
+    <br />
+    <a href="https://www.google.com/maps/search/응급의료기관+근처" class="button" id="clinicBtn" style="display: none;" target="_blank">Find Medical Clinics Near You</a>
+  </div>
 
-  <main class="page result">
-    <div class="card">
-      <h2>Your Stroke Risk Result</h2>
-      <p id="resultText" class="result-text"></p>
-      <p class="disclaimer">
-        ⚠️ This tool does not provide a medical diagnosis. Please consult a healthcare professional for medical concerns.
-      </p>
-      <button class="btn btn-primary" onclick="location.href='assessment.html'">
-        🔄 Retake Assessment
-      </button>
-      <button class="btn btn-secondary" onclick="location.href='index.html'">
-        🏠 Home
-      </button>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="inner">© 2025 Teresa Services</div>
+  <footer>
+    <p>© 2025 Teresa Services</p>
   </footer>
 
-  <!-- 공통 스크립트 불러오기 -->
-  <script src="script.js"></script>
+  <script>
+    const result = localStorage.getItem('strokeRisk');
+    const resultText = document.getElementById('resultText');
+    const clinicBtn = document.getElementById('clinicBtn');
+
+    if (result) {
+      resultText.textContent = result;
+
+      if (result.includes('HIGH')) {
+        clinicBtn.style.display = 'inline-block';
+      }
+    } else {
+      resultText.textContent = 'No result data found.';
+    }
+  </script>
 </body>
 </html>

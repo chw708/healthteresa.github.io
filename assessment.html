@@ -4,191 +4,157 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stroke Risk Assessment – Teresa Services</title>
-  <meta name="author" content="Teresa Services" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #FCF4DF;
+      font-family: 'Poppins', 'Noto Sans', sans-serif;
+      color: #1B4D3E;
+      padding: 2rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    header h1 {
+      font-size: 2rem;
+      color: #1B4D3E;
+    }
+    form {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(27, 77, 62, 0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      color: #3c6658;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #1B4D3E;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(27, 77, 62, 0.2);
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #163d30;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 3rem;
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="inner"><h1>Teresa Services</h1></div>
+  <header>
+    <h1>Stroke Risk Assessment</h1>
   </header>
 
-  <main class="page assessment">
-    <div class="card">
-      <h2>Stroke Risk Questionnaire</h2>
-      <p>아래 질문들에 답해 주세요. 답변이 많을수록 예측 정확도가 올라갑니다.</p>
-      <form id="riskForm">
-        <!-- 1. 나이 -->
-        <div class="form-group">
-          <label for="age">1. 나이</label>
-          <input type="number" id="age" min="0" required />
-        </div>
+  <form id="riskForm">
+    <label>Age:
+      <input type="number" id="age" required />
+    </label>
+    <label>Gender:
+      <select id="gender">
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+    </label>
+    <label>Do you have high blood pressure?
+      <select id="bp">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </label>
+    <label>Do you have heart disease?
+      <select id="heart">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </label>
+    <label>Are you diabetic?
+      <select id="diabetes">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </label>
+    <label>Do you smoke?
+      <select id="smoke">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </label>
+    <label>Height (cm):
+      <input type="number" id="height" required />
+    </label>
+    <label>Weight (kg):
+      <input type="number" id="weight" required />
+    </label>
+    <button type="submit">Get My Risk Result</button>
+  </form>
 
-        <!-- 2. 성별 -->
-        <div class="form-group">
-          <label for="gender">2. 성별</label>
-          <select id="gender">
-            <option value="male">남성</option>
-            <option value="female">여성</option>
-            <option value="other">기타</option>
-          </select>
-        </div>
-
-        <!-- 3. 가족력 -->
-        <div class="form-group">
-          <label>3. 가족 중(부모·형제)이 뇌졸중을 앓은 적이 있습니까?</label>
-          <select id="familyHistory">
-            <option value="yes">있다</option>
-            <option value="no">없다</option>
-          </select>
-        </div>
-
-        <!-- 4. 혈압 -->
-        <div class="form-group">
-          <label for="sbp">4. 수축기 혈압 (Systolic BP, mmHg)</label>
-          <input type="number" id="sbp" min="0" required />
-        </div>
-        <div class="form-group">
-          <label>
-            <input type="checkbox" id="onTherapy" />
-            4-1. 고혈압 약을 복용 중이신가요?
-          </label>
-        </div>
-
-        <!-- 5. 콜레스테롤 -->
-        <div class="form-group">
-          <label for="cholesterol">5. 총 콜레스테롤 수치 (mg/dL)</label>
-          <input type="number" id="cholesterol" min="0" required />
-        </div>
-
-        <!-- 6. 혈당 -->
-        <div class="form-group">
-          <label for="glucose">6. 공복 혈당 수치 (mg/dL)</label>
-          <input type="number" id="glucose" min="0" required />
-        </div>
-
-        <!-- 7. 당뇨병 -->
-        <div class="form-group">
-          <label>7. 당뇨병 진단을 받은 적이 있습니까?</label>
-          <select id="diabetes">
-            <option value="yes">예</option>
-            <option value="no">아니오</option>
-          </select>
-        </div>
-
-        <!-- 8. 심장질환 -->
-        <div class="form-group">
-          <label>8. 심장병(협심증, 심근경색 등) 진단 이력이 있습니까?</label>
-          <select id="heartDisease">
-            <option value="yes">예</option>
-            <option value="no">아니오</option>
-          </select>
-        </div>
-
-        <!-- 9. 심방세동 -->
-        <div class="form-group">
-          <label>
-            <input type="checkbox" id="afib" />
-            9. 심방세동(Atrial Fibrillation) 진단 이력이 있습니까?
-          </label>
-        </div>
-
-        <!-- 10. LVH -->
-        <div class="form-group">
-          <label>
-            <input type="checkbox" id="lvh" />
-            10. 심전도(ECG)에서 좌심실 비대(LVH) 소견이 있습니까?
-          </label>
-        </div>
-
-        <!-- 11. 흡연 -->
-        <div class="form-group">
-          <label>11. 현재 담배를 피우십니까?</label>
-          <select id="smoke">
-            <option value="yes">예</option>
-            <option value="no">아니오</option>
-          </select>
-        </div>
-
-        <!-- 12. 음주 -->
-        <div class="form-group">
-          <label for="alcohol">12. 주당 음주량 (standard drinks)</label>
-          <input type="number" id="alcohol" min="0" required />
-          <small>예: 맥주 한 캔=1, 소주 한 잔=1</small>
-        </div>
-
-        <!-- 13. 신체활동 -->
-        <div class="form-group">
-          <label for="activity">
-            13. 일주일에 30분 이상 중강도 운동(걷기·조깅·수영 등)을
-            몇 회 하십니까?
-          </label>
-          <select id="activity">
-            <option value="0">0회</option>
-            <option value="1-2">1–2회</option>
-            <option value="3-4">3–4회</option>
-            <option value="5+">5회 이상</option>
-          </select>
-        </div>
-
-        <!-- 14. 식습관 -->
-        <div class="form-group">
-          <label for="diet">
-            14. 하루에 채소·과일을 몇 끼니(회) 드십니까?
-          </label>
-          <select id="diet">
-            <option value="0-1">0–1끼</option>
-            <option value="2-3">2–3끼</option>
-            <option value="4-5">4–5끼</option>
-            <option value="5+">5회 이상</option>
-          </select>
-        </div>
-
-        <!-- 15. 수면 -->
-        <div class="form-group">
-          <label for="sleep">
-            15. 하루 평균 수면 시간은 몇 시간입니까?
-          </label>
-          <input type="number" id="sleep" min="0" max="24" required />
-        </div>
-
-        <!-- 16. 스트레스 -->
-        <div class="form-group">
-          <label for="stress">
-            16. 지난 한 달간의 평균 스트레스 수준을 1(낮음)~5(높음)으로 평가
-          </label>
-          <select id="stress">
-            <option value="1">1 (매우 낮음)</option>
-            <option value="2">2 (낮음)</option>
-            <option value="3">3 (보통)</option>
-            <option value="4">4 (높음)</option>
-            <option value="5">5 (매우 높음)</option>
-          </select>
-        </div>
-
-        <!-- 17. 키/몸무게 -->
-        <div class="form-group inline-group">
-          <div>
-            <label for="height">17-1. 키 (cm)</label>
-            <input type="number" id="height" min="0" required />
-          </div>
-          <div>
-            <label for="weight">17-2. 몸무게 (kg)</label>
-            <input type="number" id="weight" min="0" required />
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">제출하기</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='index.html'">
-          ← 홈으로
-        </button>
-      </form>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="inner">© 2025 Teresa Services</div>
+  <footer>
+    <p>© 2025 Teresa Services</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    document.getElementById('riskForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      let score = 0;
+      const age = parseInt(document.getElementById('age').value);
+      const bp = document.getElementById('bp').value;
+      const heart = document.getElementById('heart').value;
+      const diabetes = document.getElementById('diabetes').value;
+      const smoke = document.getElementById('smoke').value;
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      const bmi = weight / ((height / 100) ** 2);
+
+      if (age > 65) score++;
+      if (bp === 'yes') score++;
+      if (heart === 'yes') score++;
+      if (diabetes === 'yes') score++;
+      if (smoke === 'yes') score++;
+      if (bmi > 25) score++;
+
+      let risk = '';
+      if (score <= 1) risk = 'Your stroke risk is LOW. Maintain a healthy lifestyle!';
+      else if (score <= 3) risk = 'Your stroke risk is MODERATE. Consider regular check-ups.';
+      else risk = 'Your stroke risk is HIGH. Please consult a doctor soon.';
+
+      localStorage.setItem('strokeRisk', risk);
+      window.location.href = 'result.html';
+    });
+  </script>
 </body>
 </html>

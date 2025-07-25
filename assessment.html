@@ -3,158 +3,150 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stroke Risk Assessment – Teresa Services</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <title>Stroke Risk Assessment - Teresa Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
+      font-family: 'Poppins', sans-serif;
       background-color: #FCF4DF;
-      font-family: 'Poppins', 'Noto Sans', sans-serif;
       color: #1B4D3E;
       padding: 2rem;
     }
-    header {
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
       text-align: center;
-      margin-bottom: 2rem;
     }
-    header h1 {
-      font-size: 2rem;
-      color: #1B4D3E;
-    }
-    form {
+    .question-box {
       background: #fff;
       padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 16px rgba(27, 77, 62, 0.1);
-      max-width: 600px;
-      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
     }
-    label {
-      display: block;
+    .question {
+      font-size: 1.2rem;
       margin-bottom: 1rem;
-      font-weight: 500;
-      color: #3c6658;
     }
     input, select {
+      padding: 0.6rem;
       width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
       font-size: 1rem;
-      font-family: inherit;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
     button {
-      margin-top: 1.5rem;
-      width: 100%;
-      padding: 0.75rem;
       background-color: #1B4D3E;
-      color: #fff;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
       font-size: 1rem;
       font-weight: 600;
-      border: none;
-      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(27, 77, 62, 0.2);
-      transition: background 0.3s ease;
     }
-    button:hover {
-      background-color: #163d30;
+    .progress {
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 20px;
+      margin-bottom: 1.5rem;
     }
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #777;
-      margin-top: 3rem;
+    .progress-bar {
+      height: 100%;
+      background-color: #1B4D3E;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+    .risk-score {
+      margin-top: 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Stroke Risk Assessment</h1>
-  </header>
-
-  <form id="riskForm">
-    <label>Age:
-      <input type="number" id="age" required />
-    </label>
-    <label>Gender:
-      <select id="gender">
-        <option>Male</option>
-        <option>Female</option>
-        <option>Other</option>
-      </select>
-    </label>
-    <label>Do you have high blood pressure?
-      <select id="bp">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select>
-    </label>
-    <label>Do you have heart disease?
-      <select id="heart">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select>
-    </label>
-    <label>Are you diabetic?
-      <select id="diabetes">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select>
-    </label>
-    <label>Do you smoke?
-      <select id="smoke">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select>
-    </label>
-    <label>Height (cm):
-      <input type="number" id="height" required />
-    </label>
-    <label>Weight (kg):
-      <input type="number" id="weight" required />
-    </label>
-    <button type="submit">Get My Risk Result</button>
-  </form>
-
-  <footer>
-    <p>© 2025 Teresa Services</p>
-  </footer>
-
+  <div class="container">
+    <div class="question-box">
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div id="questionContainer">
+        <p class="question" id="questionText"></p>
+        <input type="text" id="answerInput" placeholder="Type your answer" />
+        <p id="helperText" style="font-size: 0.9rem; color: #555;"></p>
+        <button onclick="nextQuestion()">Next</button>
+      </div>
+      <div class="risk-score" id="riskScoreDisplay">Current Risk Score: 0%</div>
+    </div>
+  </div>
   <script>
-    document.getElementById('riskForm').addEventListener('submit', function (e) {
-      e.preventDefault();
+    const questions = [
+      { q: "How old are you?", type: "number", helper: "Age is a significant stroke risk factor." },
+      { q: "What is your systolic blood pressure?", type: "number", helper: "Average systolic pressure is around 120 mmHg." },
+      { q: "What is your diastolic blood pressure?", type: "number", helper: "Average diastolic pressure is around 80 mmHg." },
+      { q: "Do you have diabetes? (yes/no)", type: "text", helper: "Diabetes increases stroke risk." },
+      { q: "Do you smoke? (yes/no)", type: "text", helper: "Smoking damages blood vessels." },
+      { q: "Do you exercise regularly? (yes/no)", type: "text", helper: "Exercise can reduce stroke risk." },
+      { q: "Do you have a family history of stroke? (yes/no)", type: "text", helper: "Genetic factors play a role." },
+    ];
 
-      let score = 0;
-      const age = parseInt(document.getElementById('age').value);
-      const bp = document.getElementById('bp').value;
-      const heart = document.getElementById('heart').value;
-      const diabetes = document.getElementById('diabetes').value;
-      const smoke = document.getElementById('smoke').value;
-      const height = parseFloat(document.getElementById('height').value);
-      const weight = parseFloat(document.getElementById('weight').value);
-      const bmi = weight / ((height / 100) ** 2);
+    let currentIndex = 0;
+    let answers = [];
+    let riskScore = 0;
 
-      if (age > 65) score++;
-      if (bp === 'yes') score++;
-      if (heart === 'yes') score++;
-      if (diabetes === 'yes') score++;
-      if (smoke === 'yes') score++;
-      if (bmi > 25) score++;
+    const questionText = document.getElementById("questionText");
+    const answerInput = document.getElementById("answerInput");
+    const helperText = document.getElementById("helperText");
+    const progressBar = document.getElementById("progressBar");
+    const riskScoreDisplay = document.getElementById("riskScoreDisplay");
 
-      let risk = '';
-      if (score <= 1) risk = 'Your stroke risk is LOW. Maintain a healthy lifestyle!';
-      else if (score <= 3) risk = 'Your stroke risk is MODERATE. Consider regular check-ups.';
-      else risk = 'Your stroke risk is HIGH. Please consult a doctor soon.';
+    function showQuestion(index) {
+      questionText.textContent = questions[index].q;
+      answerInput.type = questions[index].type;
+      helperText.textContent = questions[index].helper;
+      answerInput.value = "";
+      progressBar.style.width = ((index) / questions.length) * 100 + "%";
+    }
 
-      localStorage.setItem('strokeRisk', risk);
-      window.location.href = 'result.html';
-    });
+    function nextQuestion() {
+      const value = answerInput.value.trim();
+      if (!value) return alert("Please answer the question");
+
+      answers.push(value);
+      calculateRisk(questions[currentIndex].q, value);
+
+      currentIndex++;
+      if (currentIndex < questions.length) {
+        showQuestion(currentIndex);
+      } else {
+        questionText.textContent = "Assessment Complete";
+        answerInput.style.display = "none";
+        helperText.style.display = "none";
+        document.querySelector("button").style.display = "none";
+        progressBar.style.width = "100%";
+      }
+    }
+
+    function calculateRisk(question, value) {
+      let addedRisk = 0;
+      if (question.includes("old") && Number(value) >= 60) addedRisk += 10;
+      if (question.includes("systolic") && Number(value) > 140) addedRisk += 15;
+      if (question.includes("diastolic") && Number(value) > 90) addedRisk += 10;
+      if (question.includes("diabetes") && value.toLowerCase() === "yes") addedRisk += 15;
+      if (question.includes("smoke") && value.toLowerCase() === "yes") addedRisk += 15;
+      if (question.includes("exercise") && value.toLowerCase() === "no") addedRisk += 5;
+      if (question.includes("family") && value.toLowerCase() === "yes") addedRisk += 10;
+
+      riskScore += addedRisk;
+      if (riskScore > 100) riskScore = 100;
+      riskScoreDisplay.textContent = `Current Risk Score: ${riskScore}%`;
+    }
+
+    // Initialize
+    showQuestion(currentIndex);
   </script>
 </body>
 </html>
